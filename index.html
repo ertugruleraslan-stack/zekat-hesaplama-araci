@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zekat Hesaplama Aracı | Barantech Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Ücretsiz, güncel kurlarla zekat hesaplama uygulaması. Altın, dolar ve euro değerleriyle varlıklarınızı hesaplayın.">
+</head>
+<body>
+    <div class="background-blob"></div>
+    <div class="background-blob second"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <span class="icon">🌙</span>
+                <h1>Zekat Hesaplama</h1>
+            </div>
+            <p class="subtitle">Varlıklarınızı güncel altın ve döviz kurlarıyla kolayca hesaplayın.</p>
+        </header>
+
+        <main>
+            <section class="rates-panel card">
+                <h3>Güncel Değerler</h3>
+                <div class="rates-grid">
+                    <div class="rate-item">
+                        <label>Gram Altın (24K)</label>
+                        <div class="rate-input-group">
+                            <input type="number" id="goldRate" step="0.1" value="7138.25">
+                            <span>TL</span>
+                        </div>
+                    </div>
+                    <div class="rate-item">
+                        <label>Dolar (USD)</label>
+                        <div class="rate-input-group">
+                            <input type="number" id="usdRate" step="0.01" value="44.18">
+                            <span>TL</span>
+                        </div>
+                    </div>
+                    <div class="rate-item">
+                        <label>Euro (EUR)</label>
+                        <div class="rate-input-group">
+                            <input type="number" id="eurRate" step="0.01" value="50.62">
+                            <span>TL</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="updateRatesBtn" class="secondary-btn">Kurları Güncelle 🔄</button>
+                <div id="lastUpdate" class="timestamp">Son güncelleme: Henüz yapılmadı</div>
+            </section>
+
+            <section class="assets-panel card">
+                <h3>Varlıklarınız</h3>
+                <table class="assets-table">
+                    <thead>
+                        <tr>
+                            <th>Varlık Türü</th>
+                            <th>Miktar</th>
+                            <th>Birim</th>
+                            <th>TL Karşılığı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nakit Paranız (TL)</td>
+                            <td><input type="number" class="asset-input" data-type="tl" id="cashTL" placeholder="0"></td>
+                            <td>TL</td>
+                            <td class="tl-value" id="cashTLVal">0,00 TL</td>
+                        </tr>
+                        <tr>
+                            <td>Döviz Birikiminiz (Dolar)</td>
+                            <td><input type="number" class="asset-input" data-type="usd" id="cashUSD" placeholder="0"></td>
+                            <td>USD</td>
+                            <td class="tl-value" id="cashUSDVal">0,00 TL</td>
+                        </tr>
+                        <tr>
+                            <td>Döviz Birikiminiz (Euro)</td>
+                            <td><input type="number" class="asset-input" data-type="eur" id="cashEUR" placeholder="0"></td>
+                            <td>EUR</td>
+                            <td class="tl-value" id="cashEURVal">0,00 TL</td>
+                        </tr>
+                        <tr>
+                            <td>Altın/Gümüş (Gr)</td>
+                            <td><input type="number" class="asset-input" data-type="gold" id="goldGr" placeholder="0"></td>
+                            <td>Gram</td>
+                            <td class="tl-value" id="goldGrVal">0,00 TL</td>
+                        </tr>
+                        <tr>
+                            <td>Ticari Mallar (Değeri)</td>
+                            <td><input type="number" class="asset-input" data-type="tl" id="tradeGoods" placeholder="0"></td>
+                            <td>TL</td>
+                            <td class="tl-value" id="tradeGoodsVal">0,00 TL</td>
+                        </tr>
+                        <tr>
+                            <td>Alacaklarınız</td>
+                            <td><input type="number" class="asset-input" data-type="tl" id="receivables" placeholder="0"></td>
+                            <td>TL</td>
+                            <td class="tl-value" id="receivablesVal">0,00 TL</td>
+                        </tr>
+                        <tr class="debt-row">
+                            <td>Borçlarınız (Çıkarılacak)</td>
+                            <td><input type="number" class="asset-input" data-type="neg-tl" id="debts" placeholder="0"></td>
+                            <td>TL</td>
+                            <td class="tl-value debt" id="debtsVal">0,00 TL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="result-panel card fade-in">
+                <div class="result-header">
+                    <h3>Hesap Özeti</h3>
+                    <div class="nisab-info">
+                        Nisab Miktarı (80.18 gr altın): <span id="nisabValue">0,00 TL</span>
+                    </div>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-item">
+                        <label>Net Zekat Matrahı</label>
+                        <div class="value large" id="netMatrah">0,00 TL</div>
+                    </div>
+                    <div class="result-item focus">
+                        <label>Ödenecek Zekat (1/40)</label>
+                        <div class="value highlights" id="totalZakat">0,00 TL</div>
+                    </div>
+                </div>
+
+                <div id="nisabStatus" class="status-badge">
+                    Henüz hesaplama yapılmadı.
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Barantech Zekat Aracı | Tüm Hakları Saklıdır.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
